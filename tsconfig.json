@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "noImplicitAny": true,
+      "module": "ESNext",
+      "target": "es5",
+      "jsx": "react-jsx", // Значение по-умолчанию: 'react', значение 'react-jsx' позволяет не импортировать библиотеку react.
+      "allowJs": true,
+      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true, // Благодаря этим двум строчкам можно избавиться от '* as' в импортах.
+      "esModuleInterop": true
+    },
+    "ts-node": {
+      "compilerOptions": {
+        "module": "CommonJS"
+      }
+    }
+  }
