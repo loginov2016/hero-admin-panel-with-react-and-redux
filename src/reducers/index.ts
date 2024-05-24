@@ -8,7 +8,6 @@ export interface IHeroesType {
     description: string;
     element: string;
 }
-
 export interface IFilterType {
     name: string;
     label: string;
@@ -21,7 +20,7 @@ export interface IStateType {
     filters: IFilterType[];
     filtersLoadingStatus: string,
     activeFilter: string,
-    filteredHeroes: IFilterType[]
+    filteredHeroes: IHeroesType[]
 }
 
 const initialState: IStateType = {
@@ -41,9 +40,11 @@ const reducer = (state = initialState, action: IActionType) => {
                 heroesLoadingStatus: 'loading'
             }
         case 'HEROES_FETCHED': 
+        const arrPayload = Array.isArray(action.payload) ?  action.payload : null; 
         return {
                 ...state,
                 heroes: action.payload,
+                filteredHeroes: state.activeFilter === 'all' ? arrPayload : arrPayload.filter(item => item.element === state.activeFilter),
                 heroesLoadingStatus: 'idle'
             }
         
@@ -52,13 +53,14 @@ const reducer = (state = initialState, action: IActionType) => {
         return {
             ...state,
             heroes: newHeroList,
+            filteredHeroes: state.activeFilter === 'all' ? newHeroList : newHeroList.filter(item => item.element === state.activeFilter),
             heroesLoadingStatus: 'idle'
         }
         case 'HEROES_FETCHING_ERROR':
-        return {
-            ...state,
-            heroesLoadingStatus: 'error'
-        }
+            return {
+                ...state,
+                heroesLoadingStatus: 'error'
+            }
         case 'FILTERS_FETCHING':
             return {
                 ...state,
@@ -79,9 +81,7 @@ const reducer = (state = initialState, action: IActionType) => {
             return {
                 ...state,
                 activeFilter: action.payload,
-                filteredHeroes: action.payload === 'all' ? 
-                                state.heroes :
-                                state.heroes.filter(item => item.element === action.payload)
+                filteredHeroes: action.payload === 'all' ? state.heroes : state.heroes.filter(item => item.element === action.payload)
             }
         default: return state;
     }

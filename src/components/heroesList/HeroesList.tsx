@@ -7,13 +7,14 @@ import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
-import { IHeroesType, IStateType } from '../../reducers';
+import { IStateType, IHeroesType, IFilterType } from '../../reducers';
 import { IActionType } from '../../actions';
 import { Dispatch } from 'redux';
 import p from '../../../lib/print';
 
 const HeroesList = () => {
     const heroes = useSelector<IStateType, IHeroesType[]>(state => state.heroes);
+    const filteredHeroes = useSelector<IStateType, IHeroesType[]>(state => state.filteredHeroes);
     const heroesLoadingStatus = useSelector<IStateType, string>(state => state.heroesLoadingStatus);
     const dispatch = useDispatch<Dispatch<IActionType>>();
     const {request} = useHttp();
@@ -69,7 +70,7 @@ const HeroesList = () => {
         })
     }
 
-    const elements = renderHeroesList(heroes);
+    const elements = renderHeroesList(filteredHeroes);
 
     return (
         <TransitionGroup component="ul">
