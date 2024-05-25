@@ -1,6 +1,6 @@
 import { IHeroesType, IFilterType } from '../reducers';
 
-type TPayloadType = IHeroesType[] | number | string;
+type TPayloadType = IHeroesType | IHeroesType[] | number | string;
 
 export interface IActionType {
     type: string;
@@ -52,7 +52,14 @@ export const activeFilterChanged = (filter: string) => {
     }
 }
 
-export const heroDeleted = (id: number): IActionType => {
+export const heroCreated = (hero: IHeroesType): IActionType => {
+    return {
+        type: 'HERO_CREATED',
+        payload: hero
+    }
+}
+
+export const heroDeleted = (id: number | string): IActionType => {
     return {
         type: 'HERO_DELETED',
         payload: id

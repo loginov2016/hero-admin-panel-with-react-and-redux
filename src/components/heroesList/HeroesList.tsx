@@ -19,7 +19,7 @@ const HeroesList = () => {
     const dispatch = useDispatch<Dispatch<IActionType>>();
     const {request} = useHttp();
 
-    const onDelete = useCallback( (id: number) => {
+    const onDelete = useCallback( (id: number | string) => {
         dispatch(heroesFetching());
         // Удаление персонажа по его id
         request(`http://localhost:3001/heroes/${id}`, "DELETE")

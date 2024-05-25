@@ -3,7 +3,7 @@ import { IActionType } from "../actions";
 type THeroesLoadingStatusType = 'idle' | 'loading' | 'error';
 
 export interface IHeroesType {
-    id?: number;
+    id?: number | string;
     name: string;
     description: string;
     element: string;
@@ -47,7 +47,15 @@ const reducer = (state = initialState, action: IActionType) => {
                 filteredHeroes: state.activeFilter === 'all' ? arrPayload : arrPayload.filter(item => item.element === state.activeFilter),
                 heroesLoadingStatus: 'idle'
             }
-        
+        case 'HERO_CREATED':
+            // Формируем новый массив    
+            let newCreatedHeroList = [...state.heroes, action.payload] as IHeroesType[]; //state.heroes.concat(action.payload)
+            return {
+                ...state,
+                heroes: newCreatedHeroList,
+                // Фильтруем новые данные по фильтру, который сейчас применяется
+                filteredHeroes: state.activeFilter === 'all' ? newCreatedHeroList : newCreatedHeroList.filter(item => item.element === state.activeFilter)
+            }
         case 'HERO_DELETED': 
         const newHeroList = state.heroes.filter(item => item.id !== action.payload); 
         return {
