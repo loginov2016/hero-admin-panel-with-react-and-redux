@@ -13,8 +13,15 @@ import { Dispatch } from 'redux';
 import p from '../../../lib/print';
 
 const HeroesList = () => {
-    const heroes = useSelector<IStateType, IHeroesType[]>(state => state.heroes);
-    const filteredHeroes = useSelector<IStateType, IHeroesType[]>(state => state.filteredHeroes);
+    //const heroes = useSelector<IStateType, IHeroesType[]>(state => state.heroes);
+    const filteredHeroes = useSelector<IStateType, IHeroesType[]>(state => {
+        if( state.activeFilter === 'all' ) {
+            return state.heroes;
+        } else {
+            return state.heroes.filter(item => item.element === state.activeFilter)
+        }
+    });
+
     const heroesLoadingStatus = useSelector<IStateType, string>(state => state.heroesLoadingStatus);
     const dispatch = useDispatch<Dispatch<IActionType>>();
     const {request} = useHttp();
@@ -39,8 +46,8 @@ const HeroesList = () => {
         p('useEffect => render');
     }, []);
 
-    p('HeroesList heroes: ', heroes);
-    p('HeroesList heroesLoadingStatus: ', heroesLoadingStatus);
+    //p('HeroesList heroes: ', heroes);
+    //p('HeroesList heroesLoadingStatus: ', heroesLoadingStatus);
 
     if(heroesLoadingStatus === "loading") {
         return <Spinner/>;

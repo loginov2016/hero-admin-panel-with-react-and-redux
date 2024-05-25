@@ -1,6 +1,6 @@
 import { IActionType } from "../actions";
 
-type THeroesLoadingStatusType = 'idle' | 'loading' | 'error';
+type TLoadingStatusType = 'idle' | 'loading' | 'error';
 
 export interface IHeroesType {
     id?: number | string;
@@ -16,11 +16,11 @@ export interface IFilterType {
 
 export interface IStateType {
     heroes: IHeroesType[];
-    heroesLoadingStatus: THeroesLoadingStatusType;
+    heroesLoadingStatus: TLoadingStatusType;
     filters: IFilterType[];
-    filtersLoadingStatus: string,
-    activeFilter: string,
-    filteredHeroes: IHeroesType[]
+    filtersLoadingStatus: TLoadingStatusType;
+    activeFilter: string;
+    
 }
 
 const initialState: IStateType = {
@@ -29,7 +29,7 @@ const initialState: IStateType = {
     filters: [],
     filtersLoadingStatus: 'idle',
     activeFilter: 'all',
-    filteredHeroes: []
+    
 }
 
 const reducer = (state = initialState, action: IActionType) => {
@@ -40,28 +40,20 @@ const reducer = (state = initialState, action: IActionType) => {
                 heroesLoadingStatus: 'loading'
             }
         case 'HEROES_FETCHED': 
-        const arrPayload = Array.isArray(action.payload) ?  action.payload : null; 
         return {
                 ...state,
                 heroes: action.payload,
-                filteredHeroes: state.activeFilter === 'all' ? arrPayload : arrPayload.filter(item => item.element === state.activeFilter),
                 heroesLoadingStatus: 'idle'
             }
         case 'HERO_CREATED':
-            // Формируем новый массив    
-            let newCreatedHeroList = [...state.heroes, action.payload] as IHeroesType[]; //state.heroes.concat(action.payload)
             return {
                 ...state,
-                heroes: newCreatedHeroList,
-                // Фильтруем новые данные по фильтру, который сейчас применяется
-                filteredHeroes: state.activeFilter === 'all' ? newCreatedHeroList : newCreatedHeroList.filter(item => item.element === state.activeFilter)
+                heroes: [...state.heroes, action.payload]
             }
         case 'HERO_DELETED': 
-        const newHeroList = state.heroes.filter(item => item.id !== action.payload); 
         return {
             ...state,
-            heroes: newHeroList,
-            filteredHeroes: state.activeFilter === 'all' ? newHeroList : newHeroList.filter(item => item.element === state.activeFilter),
+            heroes: state.heroes.filter(item => item.id !== action.payload),
             heroesLoadingStatus: 'idle'
         }
         case 'HEROES_FETCHING_ERROR':
@@ -89,7 +81,6 @@ const reducer = (state = initialState, action: IActionType) => {
             return {
                 ...state,
                 activeFilter: action.payload,
-                filteredHeroes: action.payload === 'all' ? state.heroes : state.heroes.filter(item => item.element === action.payload)
             }
         default: return state;
     }
