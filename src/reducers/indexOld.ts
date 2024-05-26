@@ -51,11 +51,11 @@ const reducer = (state = initialState, action: IActionType) => {
                 heroes: [...state.heroes, action.payload]
             }
         case 'HERO_DELETED': 
-        return {
-            ...state,
-            heroes: state.heroes.filter(item => item.id !== action.payload),
-            heroesLoadingStatus: 'idle'
-        }
+            return {
+                ...state,
+                heroes: state.heroes.filter(item => item.id !== action.payload),
+                heroesLoadingStatus: 'idle'
+            }
         case 'HEROES_FETCHING_ERROR':
             return {
                 ...state,

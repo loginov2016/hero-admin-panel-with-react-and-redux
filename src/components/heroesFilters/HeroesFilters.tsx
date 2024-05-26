@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { IStateType, IFilterType } from '../../reducers';
+import { IFilterType, IFiltersStateType } from '../../reducers/filtersReducer';
+import { IRootStateType } from '../../store';
 import { filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from '../../actions';
 import Spinner from '../spinner/Spinner';
 import p from '../../../lib/print';
@@ -16,10 +17,11 @@ import p from '../../../lib/print';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-    //const {filters, filtersLoadingStatus, activeFilter} = useSelector<IStateType, IStateType>(state => state);
-    const filters              = useSelector<IStateType, IFilterType[]>(state => state.filters);
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector<IRootStateType, IFiltersStateType>(state => state.filtersReducer);
+    /*const filters            = useSelector<IStateType, IFilterType[]>(state => state.filters);
     const filtersLoadingStatus = useSelector<IStateType, string>(state => state.filtersLoadingStatus);
-    const activeFilter         = useSelector<IStateType, string>(state => state.activeFilter);
+    const activeFilter         = useSelector<IStateType, string>(state => state.activeFilter); */
+    
     const dispatch = useDispatch();
     const { request } = useHttp();
 

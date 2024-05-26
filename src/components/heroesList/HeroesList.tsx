@@ -7,22 +7,31 @@ import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
-import { IStateType, IHeroesType, IFilterType } from '../../reducers';
+import { IRootStateType } from '../../store';
+import { IHeroesStateType, IHeroesType } from '../../reducers/heroesReducer';
 import { IActionType } from '../../actions';
 import { Dispatch } from 'redux';
 import p from '../../../lib/print';
 
 const HeroesList = () => {
     //const heroes = useSelector<IStateType, IHeroesType[]>(state => state.heroes);
-    const filteredHeroes = useSelector<IStateType, IHeroesType[]>(state => {
-        if( state.activeFilter === 'all' ) {
-            return state.heroes;
+    /* const newState = useSelector<IRootStateType>(state => ({
+        activeFilter: state.filtersReducer.activeFilter,
+        heroes: state.heroesReducer.heroes
+    })); */
+
+    const filteredHeroes = useSelector<IRootStateType, IHeroesType[]>(state => {
+        if( state.filtersReducer.activeFilter === 'all' ) {
+            p('HeroesList useSelector - рендерится каждый раз когда нажимается кнопка фильтра all');
+            p('HeroesList useSelector - нужно установить библиотеку reselect, которая будет мемоизировать значение, и не будет лишнего рендера');
+            return state.heroesReducer.heroes;
         } else {
-            return state.heroes.filter(item => item.element === state.activeFilter)
+            return state.heroesReducer.heroes.filter(item => item.element === state.filtersReducer.activeFilter)
         }
     });
 
-    const heroesLoadingStatus = useSelector<IStateType, string>(state => state.heroesLoadingStatus);
+    const heroesLoadingStatus = useSelector<IRootStateType, string>(state => state.heroesReducer.heroesLoadingStatus);
+
     const dispatch = useDispatch<Dispatch<IActionType>>();
     const {request} = useHttp();
 

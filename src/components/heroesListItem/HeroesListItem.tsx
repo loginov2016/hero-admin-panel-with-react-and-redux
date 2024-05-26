@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IHeroesType } from "../../reducers";
+import { IHeroesType } from "../../reducers/heroesReducer";
 
 interface IPropsType extends IHeroesType {
     onDelete: () => void;

@@ -1,6 +1,7 @@
-import { IHeroesType, IFilterType } from '../reducers';
+import { IHeroesType } from '../reducers/heroesReducer';
+import { IFilterType } from '../reducers/filtersReducer';
 
-type TPayloadType = IHeroesType | IHeroesType[] | number | string;
+export type TPayloadType = IHeroesType | IHeroesType[] | IFilterType[] | number | string;
 
 export interface IActionType {
     type: string;

@@ -1,11 +1,13 @@
 import {useHttp} from '../../hooks/http.hook';
 import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 
+import { IRootStateType } from '../../store';
 import { IActionType, heroCreated } from '../../actions';
-import { IFilterType, IHeroesType, IStateType } from '../../reducers';
-import { Dispatch } from 'redux';
+import { IHeroesType, IHeroesStateType } from '../../reducers/heroesReducer';
+import { IFilterType, IFiltersStateType } from '../../reducers/filtersReducer';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
@@ -23,7 +25,7 @@ const HeroesAddForm = () => {
     const [heroDescription, setHeroDescription] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector<IStateType, IStateType>(state => state);
+    const {filters, filtersLoadingStatus} = useSelector<IRootStateType, IFiltersStateType>(state => state.filtersReducer);
     const dispatch = useDispatch<Dispatch<IActionType>>();
     const {request} = useHttp();
 
