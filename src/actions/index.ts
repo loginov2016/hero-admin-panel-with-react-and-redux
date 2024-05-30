@@ -1,31 +1,59 @@
+import { createAction } from '@reduxjs/toolkit'; 
 import { IHeroesType } from '../reducers/heroesReducer';
 import { IFilterType } from '../reducers/filtersReducer';
 
 export type TPayloadType = IHeroesType | IHeroesType[] | IFilterType[] | number | string;
 
 export interface IActionType {
-    type: string;
-    payload?: TPayloadType;
+    readonly type: string;
+    readonly payload?: TPayloadType;
 }
 
-export const heroesFetching = (): IActionType => {
+/* 
+    export const fetchHeroes = (request) => (dispatch) => {
+    dispatch( heroesFetching() );
+    request("http://localhost:3001/heroes")
+        //.then( data => p('data: ', data) )
+        .then( data => dispatch( heroesFetched(data) ))
+        .catch( () => dispatch( heroesFetchingError() ))
+    }
+*/
+
+/* export const heroesFetching = (): IActionType => {
     return {
         type: 'HEROES_FETCHING'
     }
+} 
+export const heroesFetchingError = (): IActionType => {
+    return {
+        type: 'HEROES_FETCHING_ERROR'
+    }
 }
-
 export const heroesFetched = (heroes: IHeroesType[]): IActionType => {
     return {
         type: 'HEROES_FETCHED',
         payload: heroes
     }
 }
-
-export const heroesFetchingError = (): IActionType => {
+export const heroCreated = (hero: IHeroesType): IActionType => {
     return {
-        type: 'HEROES_FETCHING_ERROR'
+        type: 'HERO_CREATED',
+        payload: hero
     }
 }
+export const heroDeleted = (id: number | string): IActionType => {
+    return {
+        type: 'HERO_DELETED',
+        payload: id
+    }
+}
+*/
+
+export const heroesFetching      = createAction('HEROES_FETCHING');
+export const heroesFetched       = createAction('HEROES_FETCHED')
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR');
+export const heroCreated         = createAction('HERO_CREATED');
+export const heroDeleted         = createAction('HERO_DELETED');
 
 export const filtersFetching = () => {
     return {
@@ -50,20 +78,6 @@ export const activeFilterChanged = (filter: string) => {
     return {
         type: 'ACTIVE_FILTER_CHANGED',
         payload: filter
-    }
-}
-
-export const heroCreated = (hero: IHeroesType): IActionType => {
-    return {
-        type: 'HERO_CREATED',
-        payload: hero
-    }
-}
-
-export const heroDeleted = (id: number | string): IActionType => {
-    return {
-        type: 'HERO_DELETED',
-        payload: id
     }
 }
 

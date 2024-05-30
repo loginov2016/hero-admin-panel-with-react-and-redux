@@ -407,6 +407,31 @@ function formatProdErrorMessage(code) {
   function isAction(action) {
     return isPlainObject(action) && "type" in action && typeof action.type === "string";
   }
+
+  // Исходный код функции createAction
+  function createAction(type, prepareAction) {
+    function actionCreator(...args) {
+        if (prepareAction) {
+          let prepared = prepareAction(...args);
+          if (!prepared) {
+              throw new Error('prepareAction did not return an object');
+          }
+          return {
+            type: type,
+            payload: prepared.payload,
+          };
+        }
+        return {
+            type: type,
+            payload: args[0],
+        };
+    }
+    actionCreator.toString = () => `${type}`;
+    actionCreator.type = type;
+    actionCreator.match = (action) => action.type === type;
+    return actionCreator;
+  }
+
   export {
     actionTypes_default as __DO_NOT_USE__ActionTypes,
     applyMiddleware,
@@ -416,6 +441,7 @@ function formatProdErrorMessage(code) {
     createStore,
     isAction,
     isPlainObject,
-    legacy_createStore
+    legacy_createStore,
+    createAction
   };
   //# sourceMappingURL=redux.mjs.map

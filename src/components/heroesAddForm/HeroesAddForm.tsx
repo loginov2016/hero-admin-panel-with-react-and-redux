@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 
+import { heroCreated } from '../heroesList/heroesSlice';
 import { IRootStateType } from '../../store';
-import { IActionType, heroCreated } from '../../actions';
+import { IActionType } from '../../actions';
 import { IHeroesType, IHeroesStateType } from '../../reducers/heroesReducer';
 import { IFilterType, IFiltersStateType } from '../../reducers/filtersReducer';
 

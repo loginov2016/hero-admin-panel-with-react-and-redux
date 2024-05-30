@@ -1,5 +1,5 @@
 import { IActionType } from "../actions";
-import { TLoadingStatusType } from "./reducer.types";
+import { TLoadingStatusType, IReducerType } from "./reducer.types";
 import { TPayloadType } from "../actions";
 
 export interface IFilterType {
@@ -22,7 +22,7 @@ const initialState: IFiltersStateType = {
     
 }
 
-const filtersReducer = (state = initialState, action: IActionType): IFiltersStateType => {
+const filtersReducer: IReducerType<IFiltersStateType, IActionType> = (state = initialState, action: IActionType): IFiltersStateType => {
     switch (action.type) {
         case 'FILTERS_FETCHING':
             return {
