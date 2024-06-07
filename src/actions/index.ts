@@ -1,23 +1,27 @@
-import { createAction } from '@reduxjs/toolkit'; 
+import { AsyncThunkAction, Dispatch, ThunkAction, createAction } from '@reduxjs/toolkit'; 
+//import { heroesFetching, heroesFetched, heroesFetchingError } from '../components/heroesList/heroesSlice';
+
 import { IHeroesType } from '../reducers/heroesReducer';
 import { IFilterType } from '../reducers/filtersReducer';
+import { IRequestType } from '../hooks/http.hook';
 
 export type TPayloadType = IHeroesType | IHeroesType[] | IFilterType[] | number | string;
 
 export interface IActionType {
-    readonly type: string;
-    readonly payload?: TPayloadType;
+    type: string;
+    payload?: TPayloadType;
 }
 
-/* 
-    export const fetchHeroes = (request) => (dispatch) => {
+
+/* export const fetchHeroes = (request: IRequestType) => (dispatch: Dispatch<IActionType>) => {
     dispatch( heroesFetching() );
     request("http://localhost:3001/heroes")
         //.then( data => p('data: ', data) )
         .then( data => dispatch( heroesFetched(data) ))
         .catch( () => dispatch( heroesFetchingError() ))
-    }
-*/
+    
+}
+ */
 
 /* export const heroesFetching = (): IActionType => {
     return {
@@ -49,13 +53,13 @@ export const heroDeleted = (id: number | string): IActionType => {
 }
 */
 
-export const heroesFetching      = createAction('HEROES_FETCHING');
+/* export const heroesFetching   = createAction('HEROES_FETCHING');
 export const heroesFetched       = createAction('HEROES_FETCHED')
 export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR');
 export const heroCreated         = createAction('HERO_CREATED');
-export const heroDeleted         = createAction('HERO_DELETED');
+export const heroDeleted         = createAction('HERO_DELETED'); */
 
-export const filtersFetching = () => {
+/* export const filtersFetching = () => {
     return {
         type: 'FILTERS_FETCHING'
     }
@@ -79,7 +83,7 @@ export const activeFilterChanged = (filter: string) => {
         type: 'ACTIVE_FILTER_CHANGED',
         payload: filter
     }
-}
+} */
 
 /* 
     {

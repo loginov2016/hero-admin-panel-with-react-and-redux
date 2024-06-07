@@ -1,8 +1,8 @@
-import { StoreEnhancer, Dispatch, createStore, combineReducers, Reducer, Store, compose, applyMiddleware, Action } from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { StoreEnhancer, Dispatch, createStore, combineReducers, Reducer, Store, compose, applyMiddleware} from 'redux';
+import { configureStore, Action } from '@reduxjs/toolkit';
 //import { thunk } from 'redux-thunk'; // Вместо ReduxThunk нужно писать просто именованный thunk
-import heroesReducer from '../components/heroesList/heroesSlice';
-import filtersReducer from '../reducers/filtersReducer';
+import heroesReducer  from '../components/heroesList/heroesSlice';
+import filtersReducer from '../components/heroesFilters/filtersSlice';
 import { IHeroesStateType } from '../reducers/heroesReducer'
 import { IFiltersStateType } from '../reducers/filtersReducer'
 import p from '../../lib/print';
@@ -10,14 +10,15 @@ import { IActionType } from '../actions';
 import { IReducerType }  from "../reducers/reducer.types";
 import { Middleware } from 'webpack-dev-server';
 
-export interface IRootStateType {
+/* export interface IRootStateType {
     heroesReducer: IHeroesStateType;
     filtersReducer: IFiltersStateType; 
-}
+} */
 
 interface newDispatchType<T> extends Dispatch {
     (action: T): T;
 }
+
 //store: Store<IRootStateType, IActionType, Dispatch<IActionType>>
 const stringMiddlware = () => (dispatch: Dispatch<IActionType>) => (action: IActionType | string) => {
     if( typeof action === 'string' ) {
@@ -57,5 +58,8 @@ const store = configureStore({
     middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddlware),
     devTools: process.env.NODE_ENV !== 'production',
 });
+
+export type IRootStateType = ReturnType<typeof store.getState>;
+export type AppDispatchType = typeof store.dispatch;
 
 export default store;

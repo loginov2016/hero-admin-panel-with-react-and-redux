@@ -3,9 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { IFilterType, IFiltersStateType } from '../../reducers/filtersReducer';
 import { IRootStateType } from '../../store';
-import { filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from '../../actions';
+import { IFilterType, IFiltersStateType, filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 import p from '../../../lib/print';
 

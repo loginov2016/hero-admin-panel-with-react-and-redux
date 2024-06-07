@@ -7,8 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { heroCreated } from '../heroesList/heroesSlice';
 import { IRootStateType } from '../../store';
 import { IActionType } from '../../actions';
-import { IHeroesType, IHeroesStateType } from '../../reducers/heroesReducer';
-import { IFilterType, IFiltersStateType } from '../../reducers/filtersReducer';
+import { IHeroesType, IHeroesStateType } from '../heroesList/heroesSlice';
+import { IFilterType, IFiltersStateType } from '../heroesFilters/filtersSlice';
 
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать

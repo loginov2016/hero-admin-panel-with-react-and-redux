@@ -12,14 +12,12 @@ export interface IFiltersStateType {
     filters: IFilterType[];
     filtersLoadingStatus: TLoadingStatusType;
     activeFilter: string;
-    
 }
 
 const initialState: IFiltersStateType = {
     filters: [],
     filtersLoadingStatus: 'idle',
     activeFilter: 'all',
-    
 }
 
 const filtersReducer: IReducerType<IFiltersStateType, IActionType> = (state = initialState, action: IActionType): IFiltersStateType => {

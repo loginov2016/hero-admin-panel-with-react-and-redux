@@ -1,5 +1,5 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { IActionType, heroesFetching, heroesFetched, heroesFetchingError, heroCreated, heroDeleted } from "../actions";
+//import { createReducer } from "@reduxjs/toolkit";
+//import { heroesFetching, heroesFetched, heroesFetchingError, heroCreated, heroDeleted } from "../components/heroesList/heroesSlice";
 import { TLoadingStatusType, IReducerType } from "./reducer.types";
 
 
@@ -17,7 +17,7 @@ export interface IHeroesStateType {
 
 
 
-const initialState: IHeroesStateType = {
+/* const initialState: IHeroesStateType = {
     heroes: [],
     heroesLoadingStatus: 'idle', 
 }
@@ -39,7 +39,7 @@ const heroesReducer = createReducer(initialState, builder => {
             state.heroesLoadingStatus = 'idle';
            })
            .addDefaultCase( () => {} )
-});
+}); */
 
 /* const heroesReducer: IReducerType<IHeroesStateType, IActionType> = (state = initialState, action: IActionType): IHeroesStateType => {
     switch (action.type) {
@@ -76,4 +76,4 @@ const heroesReducer = createReducer(initialState, builder => {
     }
 } */
 
-export default heroesReducer;
+//export default heroesReducer;
