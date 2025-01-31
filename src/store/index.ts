@@ -60,6 +60,6 @@ const store = configureStore({
 });
 
 export type IRootStateType = ReturnType<typeof store.getState>;
-export type AppDispatchType = typeof store.dispatch;
+export type TAppDispatchType = typeof store.dispatch;
 
 export default store;

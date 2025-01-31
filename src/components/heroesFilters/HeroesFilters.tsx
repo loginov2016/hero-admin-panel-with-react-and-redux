@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
-import { IRootStateType } from '../../store';
-import { IFilterType, IFiltersStateType, filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from './filtersSlice';
+import { IRootStateType, TAppDispatchType } from '../../store';
+import { IFilterType, IFiltersStateType, /*filtersFetching, filtersFetched, filtersFetchingError,*/ activeFilterChanged, fetchFilters } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 import p from '../../../lib/print';
 
@@ -21,15 +21,16 @@ const HeroesFilters = () => {
     const filtersLoadingStatus = useSelector<IStateType, string>(state => state.filtersLoadingStatus);
     const activeFilter         = useSelector<IStateType, string>(state => state.activeFilter); */
     
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<TAppDispatchType>();
     const { request } = useHttp();
 
     useEffect(() => {
-        dispatch( filtersFetching() );
+        dispatch( fetchFilters() );
+        /* dispatch( filtersFetching() );
         request("http://localhost:3001/filters")
             //.then( data => p('data: ', data) )
             .then( data => dispatch( filtersFetched(data) ))
-            .catch(  () => dispatch( filtersFetchingError() ))
+            .catch(  () => dispatch( filtersFetchingError() )) */
         // eslint-disable-next-line
         p('HeroesFilter useEffect => render');
     }, []);

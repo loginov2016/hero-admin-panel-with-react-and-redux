@@ -13,7 +13,7 @@ import { IHeroesStateType, IHeroesType } from './heroesSlice';
 //import { IActionType } from '../../actions';
 //import { Action, Dispatch, UnknownAction } from 'redux';
 import p from '../../../lib/print';
-import { AppDispatchType } from '../../store';
+import { TAppDispatchType } from '../../store';
 import { IActionType } from '../../actions';
 
 
@@ -54,7 +54,7 @@ const HeroesList = () => {
     
     // Была ошибка: Argument of type 'AsyncThunkAction<IHeroesType[], void, AsyncThunkConfig>' is not assignable to parameter of type 'IActionType'
     //const dispatch = useDispatch<ThunkDispatch<IRootStateType, any, IActionType>>(); // Заменил Dispatch<IActionType> на ThunkDispatch<any, any, any> и всё с работало.
-    const dispatch = useDispatch<AppDispatchType>();
+    const dispatch = useDispatch<TAppDispatchType>();
     const {request} = useHttp();
 
     const onDelete = useCallback( (id: number | string) => {
