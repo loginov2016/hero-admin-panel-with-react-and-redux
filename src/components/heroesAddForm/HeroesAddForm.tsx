@@ -3,22 +3,11 @@ import { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
-
 import { heroCreated } from '../heroesList/heroesSlice';
-import { IRootStateType } from '../../store';
-import { IActionType } from '../../actions';
-import { IHeroesType, IHeroesStateType } from '../heroesList/heroesSlice';
-import { IFilterType, IFiltersStateType } from '../heroesFilters/filtersSlice';
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+import type { IRootStateType } from '../../store';
+import type { IActionType } from '../../types/reducer.types'
+import type { IHeroesType } from '../heroesList/heroesSlice';
+import type { IFilterType, IFiltersStateType } from '../heroesFilters/filtersSlice';
 
 const HeroesAddForm = () => {
     // Состояния для контроля формы
@@ -32,8 +21,6 @@ const HeroesAddForm = () => {
 
     const onSubmitHandler = (e: FormEvent) => {
         e.preventDefault();
-        // Можно сделать и одинаковые названия состояний,
-        // хотел показать вам чуть нагляднее
         // Генерация id через библиотеку
         const newHero: IHeroesType = {
             id: uuidv4(),

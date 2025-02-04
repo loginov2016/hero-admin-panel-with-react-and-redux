@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useHttp } from "../../hooks/http.hook";
-import { IActionType } from "../../actions"; 
-import { TLoadingStatusType } from "../../reducers/reducer.types";
-import { IRequestType } from "../../hooks/http.hook";
+import { TLoadingStatusType } from "../../types/reducer.types";
 import p from "../../../lib/print";
-import { InitializeHook } from "module";
 
 
 export interface IHeroesType {
@@ -38,14 +35,6 @@ const heroesSlice = createSlice({
     name: 'heroes',
     initialState,
     reducers: {
-            /* heroesFetching: state => {state.heroesLoadingStatus = 'loading'},
-            heroesFetched: (state, action) => {
-                state.heroesLoadingStatus = 'idle';
-                state.heroes = action.payload;
-            },
-            heroesFetchingError: state => {
-                state.heroesLoadingStatus = 'error';
-            },*/ 
             heroCreated: (state, action) => {
                 state.heroes.push(action.payload); 
             },
@@ -72,9 +61,6 @@ const heroesSlice = createSlice({
     p('actions: ', actions);
     export default reducer;
     export const {
-        /* heroesFetching,
-        heroesFetched,
-        heroesFetchingError,*/ 
         heroCreated,
         heroDeleted
     } = actions;

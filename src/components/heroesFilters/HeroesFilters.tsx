@@ -4,34 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import { IRootStateType, TAppDispatchType } from '../../store';
-import { IFilterType, IFiltersStateType, /*filtersFetching, filtersFetched, filtersFetchingError,*/ activeFilterChanged, fetchFilters } from './filtersSlice';
+import { IFilterType, IFiltersStateType, activeFilterChanged, fetchFilters } from './filtersSlice';
 import Spinner from '../spinner/Spinner';
 import p from '../../../lib/print';
 
-// Задача для этого компонента:
-// Фильтры должны формироваться на основании загруженных данных
-// Фильтры должны отображать только нужных героев при выборе
-// Активный фильтр имеет класс active
-// Изменять json-файл для удобства МОЖНО!
-// Представьте, что вы попросили бэкенд-разработчика об этом
-
 const HeroesFilters = () => {
     const {filters, filtersLoadingStatus, activeFilter} = useSelector<IRootStateType, IFiltersStateType>(state => state.filtersReducer);
-    /*const filters            = useSelector<IStateType, IFilterType[]>(state => state.filters);
-    const filtersLoadingStatus = useSelector<IStateType, string>(state => state.filtersLoadingStatus);
-    const activeFilter         = useSelector<IStateType, string>(state => state.activeFilter); */
     
     const dispatch = useDispatch<TAppDispatchType>();
     const { request } = useHttp();
 
     useEffect(() => {
         dispatch( fetchFilters() );
-        /* dispatch( filtersFetching() );
-        request("http://localhost:3001/filters")
-            //.then( data => p('data: ', data) )
-            .then( data => dispatch( filtersFetched(data) ))
-            .catch(  () => dispatch( filtersFetchingError() )) */
-        // eslint-disable-next-line
         p('HeroesFilter useEffect => render');
     }, []);
 

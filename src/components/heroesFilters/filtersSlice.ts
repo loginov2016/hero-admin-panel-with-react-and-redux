@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TLoadingStatusType } from "../../reducers/reducer.types";
+import { TLoadingStatusType } from "../../types/reducer.types";
 import { useHttp } from "../../hooks/http.hook";
 
 export interface IFilterType {
@@ -32,12 +32,6 @@ const filterSlice = createSlice({
     name: 'filters',
     initialState,
     reducers: {
-        /* filtersFetching: state => { state.filtersLoadingStatus = 'loading'; },
-        filtersFetched: (state, action) => {
-            state.filters = action.payload;
-            state.filtersLoadingStatus = 'idle';
-        },
-        filtersFetchingError: state => { state.filtersLoadingStatus = 'error'; }, */
         activeFilterChanged: (state, action) => { state.activeFilter = action.payload; }
     },
     extraReducers: builder => {
@@ -53,8 +47,5 @@ const filterSlice = createSlice({
 const { actions, reducer } = filterSlice;
 export default reducer;
 export const {
-    /* filtersFetching,
-    filtersFetched,
-    filtersFetchingError, */
     activeFilterChanged
 } = actions;
